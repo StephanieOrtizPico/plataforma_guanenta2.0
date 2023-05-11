@@ -1,0 +1,1 @@
+# plataforma_guanenta2.0

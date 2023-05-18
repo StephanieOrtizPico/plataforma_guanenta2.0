@@ -1,156 +1,195 @@
-#---------------------------------
-# Desktop app No. 2- Temperatura
-#---------------------------------
+#------------------------------
+# Plataforma Guanentá 2.0
+#------------------------------
 
 # se importa la libreria tkinter con todas sus funciones
 from tkinter import *
 from tkinter import messagebox
 
-#-------------------------
+#------------------------------
 # funciones de la app
-#-------------------------
+#------------------------------
 
-# abrir toplevel centigrados
-def abrir_toplevel_centigrados():
-    global toplevel_centigrados
-    toplevel_centigrados = Toplevel()
-    toplevel_centigrados.title("Centigrados")
-    toplevel_centigrados.resizable(False, False)
-    toplevel_centigrados.geometry("300x200")
-    toplevel_centigrados.config(bg="white")
-
-    # logo de la app
-    lb_logo2 = Label(toplevel_centigrados, image=logo, bg="white")
-    lb_logo2.place(x=10,y=10)
-
-    # etiqueta para valor en centigrados
-    lb_c = Label(toplevel_centigrados, text = "°C = ")
-    lb_c.config(bg="white", fg="blue", font=("Helvetica", 18))
-    lb_c.place(x=150, y=60)
-
-    # caja de texto para valor en centigrados
-    entry_c = Entry(toplevel_centigrados, textvariable=c)
-    entry_c.config(bg="white", fg="blue", font=("Times New Roman", 18), width=6)
-    entry_c.focus_set()
-    entry_c.place(x=210,y=60)
-
-   # boton para convertir
-    bt_aceptar = Button(toplevel_centigrados,text="Aceptar", command=aceptar)
-    bt_aceptar.place(x=100, y=150, width=100, height=30)
-
-# aceptar
-def aceptar():
-    global cent
-    cent = int(c.get())
-    toplevel_centigrados.destroy()
-
-# convertir
-def convertir():
-    messagebox.showinfo("Temperatura 1.0", "Conversión realizada")
-    # cent = int(c.get())
-    if kf.get()=="kelvin":
-        k = cent + 273.15
-        t_resultados.insert(INSERT, f"\n{int(c.get())} °C equivalen a {k} °K")
-    elif kf.get() == "fahrenheit":
-        f = cent*9/5 + 32
-        t_resultados.insert(INSERT, f"\n{int(c.get())} °C equivalen a {f} °F")
-    else:
-        t_resultados.insert(INSERT, "Debe seleccionar una opción")
-    
 # borrar
 def borrar():
-    messagebox.showinfo("Temperatura 1.0", "Los datos serán borrados")
-    c.set("")
-    t_resultados.delete("1.0","end")
+    messagebox.showinfo("Plataforma Guanentá 2.0", "Los datos serán borrados")
 
 # salir
 def salir():
-    messagebox.showinfo("Temperatura 1.0", "La app se va a cerrar")
+    messagebox.showinfo("Plataforma Guanentá 2.0", "La app se va a cerrar")
     ventana_principal.destroy()
 
-#-----------------------------
+#------------------------------
 # ventana principal de la app
-#-----------------------------
+#------------------------------
 
 # se declara una variable llamada ventana_principal, que adquiere las caracteristicas de un objeto Tk()
 ventana_principal = Tk()
 
 # titulo de la ventana
-ventana_principal.title("Temperatura 1.0")
+ventana_principal.title("Stephanie Ortiz Pico")
 
 # tamaño de la ventana
-ventana_principal.geometry("500x500")
+ventana_principal.geometry("600x500")
 
-# deshabilitar boton de maximizar
+# deshabilitar boton maximizar
 ventana_principal.resizable(False, False)
 
 # color de fondo de la ventana
-ventana_principal.config(bg="blue")
+ventana_principal.config(bg="black")
+
+#------------------------------
+# frame entrada
+#------------------------------
+frame_entrada= Frame(ventana_principal)
+frame_entrada.config(bg="thistle", width=600, height=500)
+frame_entrada.place(x=0, y=0)
+
+#------------------------------
+# frame blanco
+#------------------------------
+frame_blanco= Frame(ventana_principal)
+frame_blanco.config(bg="white", width=580, height=480)
+frame_blanco.place(x=10, y=10)
+
+#------------------------------
+# frame thistle
+#------------------------------
+frame_thistle= Frame(ventana_principal)
+frame_thistle.config(bg="thistle", width=560, height=60)
+frame_thistle.place(x=20, y=20)
 
 #--------------------------------
-# variables globales
+# barra menu
 #--------------------------------
-c = StringVar()
-kf = StringVar()
-global logo
+barra_menu = Menu()
+ventana_principal.config(menu=barra_menu)
 
-#--------------------------------
-# frame entrada datos
-#--------------------------------
-frame_entrada = Frame(ventana_principal)
-frame_entrada.config(bg="white", width=480, height=180)
-frame_entrada.place(x=10, y=10)
+menu_convertir = Menu(tearoff=0)
+menu_convertir.add_separator()
+menu_convertir.add_command(label="Borrar", command=borrar)
+
+menu_salir = Menu(tearoff=0)
+menu_salir.add_command(label="Salir", command=salir)
+
+barra_menu.add_cascade(label="Menú", menu=menu_convertir)
+barra_menu.add_cascade(label="Salir", menu=menu_salir)
 
 # titulo de la app
-titulo = Label(frame_entrada, text="Termperatura 1.0")
-titulo.config(bg = "white",fg="blue", font=("Helvetica", 20))
-titulo.place(x=240,y=10)
+titulo = Label(frame_thistle, text="Plataforma Guanentá 2.0")
+titulo.config(bg = "thistle",fg="white", font=("Helvetica", 30))
+titulo.place(x=70,y=13)
 
-# boton para abrir Toplevel para ingresar °C
-bt_centigrados = Button(frame_entrada, text="Ingresar °C", command=abrir_toplevel_centigrados)
-bt_centigrados.place(x=240, y=60)
+# etiqueta para el nombre
+lb_nombre = Label(frame_blanco, text = "Nombre del estudiante = ")
+lb_nombre.config(bg="white", fg="thistle", font=("Helvetica", 18))
+lb_nombre.place(x=30, y=100)
 
-# radiobutton para kelvin
-rb_k = Radiobutton(frame_entrada, text="Kelvin", variable=kf, value="kelvin")
-rb_k.config(bg="white", fg="blue", font=("Helvetica", 18))
-rb_k.place(x=240, y=110)
+# caja de texto para el nombre
+entry_nombre = Entry(frame_blanco, textvariable=lb_nombre)
+entry_nombre.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=20)
+entry_nombre.focus_set()
+entry_nombre.place(x=300, y=95)
 
-# radiobutton para farenheit
-rb_f = Radiobutton(frame_entrada, text="Fahrenheit", variable=kf, value="fahrenheit")
-rb_f.config(bg="white", fg="blue", font=("Helvetica", 18))
-rb_f.place(x=240, y=140)
+# etiqueta para el número telefónico
+lb_telefono = Label(frame_blanco, text = "Número de Teléfono = ")
+lb_telefono.config(bg="white", fg="thistle", font=("Helvetica", 18))
+lb_telefono.place(x=30, y=160)
 
-#--------------------------------
-# frame operaciones
-#--------------------------------
-frame_operaciones = Frame(ventana_principal)
-frame_operaciones.config(bg="white", width=480, height=100)
-frame_operaciones.place(x=10, y=200)
+# caja de texto para el número telefónico
+entry_telefono = Entry(frame_blanco, textvariable=lb_telefono)
+entry_telefono.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=20)
+entry_telefono.focus_set()
+entry_telefono.place(x=300, y=155)
 
-# boton para convertir
-bt_convertir = Button(frame_operaciones,text="Convertir", command=convertir)
-bt_convertir.place(x=45, y=35, width=100, height=30)
+# etiqueta para el correo
+lb_correo = Label(frame_blanco, text = "Correo Electrónico = ")
+lb_correo.config(bg="white", fg="thistle", font=("Helvetica", 18))
+lb_correo.place(x=30, y=220)
+
+# caja de texto para el correo
+entry_correo = Entry(frame_blanco, textvariable=lb_correo)
+entry_correo.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=20)
+entry_correo.focus_set()
+entry_correo.place(x=300, y=215)
+
+# abrir toplevel notas
+def abrir_toplevel_notas():
+    global toplevel_notas
+    toplevel_notas = Toplevel()
+    toplevel_notas.title("Stephanie Ortiz Pico")
+    toplevel_notas.resizable(False, False)
+    toplevel_notas.geometry("600x400")
+    toplevel_notas.config(bg="white")
+
+    # etiqueta para notas
+    lb_c = Label(toplevel_notas, text = "Notas")
+    lb_c.config(bg="white", fg="thistle", font=("Helvetica", 30))
+    lb_c.place(x=230, y=15)
+
+    # etiqueta para nota actitudinal
+    lb_actitudinal = Label(toplevel_notas, text = "Actitudinal")
+    lb_actitudinal.config(bg="white", fg="thistle", font=("Helvetica", 18))
+    lb_actitudinal.place(x=150, y=65)
+
+    # etiqueta para nota procedimental
+    lb_procedimental = Label(toplevel_notas, text = "Procedimental")
+    lb_procedimental.config(bg="white", fg="thistle", font=("Helvetica", 18))
+    lb_procedimental.place(x=150, y=125)
+
+    # etiqueta para nota cognitiva
+    lb_cognitiva = Label(toplevel_notas, text = "Cognitivo")
+    lb_cognitiva.config(bg="white", fg="thistle", font=("Helvetica", 18))
+    lb_cognitiva.place(x=150, y=185)
+
+    # etiqueta para nota bimestral
+    lb_bimestral = Label(toplevel_notas, text = "Bimestral")
+    lb_bimestral.config(bg="white", fg="thistle", font=("Helvetica", 18))
+    lb_bimestral.place(x=150, y=245)
+    
+    # etiqueta para nota autoevaluacion
+    lb_autoevaluacion = Label(toplevel_notas, text = "Autoevaluacion")
+    lb_autoevaluacion.config(bg="white", fg="thistle", font=("Helvetica", 18))
+    lb_autoevaluacion.place(x=150, y=305)
+
+    # caja de texto para nota actitudinal
+    entry_actitudinal = Entry(toplevel_notas, textvariable="")
+    entry_actitudinal.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=6)
+    entry_actitudinal.focus_set()
+    entry_actitudinal.place(x=340,y=60)
+
+    # caja de texto para nota procedimental
+    entry_procedimental = Entry(toplevel_notas, textvariable="")
+    entry_procedimental.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=6)
+    entry_procedimental.focus_set()
+    entry_procedimental.place(x=340,y=120)
+
+    # caja de texto para nota cognitiva
+    entry_cognitiva = Entry(toplevel_notas, textvariable="")
+    entry_cognitiva.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=6)
+    entry_cognitiva.focus_set()
+    entry_cognitiva.place(x=340,y=180)
+    
+    # caja de texto para nota bimestral
+    entry_bimestral = Entry(toplevel_notas, textvariable="")
+    entry_bimestral.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=6)
+    entry_bimestral.focus_set()
+    entry_bimestral.place(x=340,y=240)
+
+    # caja de texto para nota autoevaluacion
+    entry_autoevaluacion = Entry(toplevel_notas, textvariable="")
+    entry_autoevaluacion.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=6)
+    entry_autoevaluacion.focus_set()
+    entry_autoevaluacion.place(x=340,y=300)
+
+# boton para calcular notas
+bt_convertir = Button(frame_blanco,text="Calcular Notas", command=abrir_toplevel_notas)
+bt_convertir.place(x=230, y=300, width=100, height=30)
 
 # boton para borrar
-bt_borrar = Button(frame_operaciones, text="Borrar", command=borrar)
+bt_borrar = Button(frame_blanco, text="Borrar", command=borrar)
 bt_borrar.place(x=190, y=35, width=100, height=30)
 
-# boton para salir
-bt_salir = Button(frame_operaciones,text="Salir", command=salir)
-bt_salir.place(x=335, y=35, width=100, height=30)
-
-#--------------------------------
-# frame resultados
-#--------------------------------
-frame_resultados = Frame(ventana_principal)
-frame_resultados.config(bg="white", width=480, height=180)
-frame_resultados.place(x=10, y=310)
-
-# area de texto para los resultados
-t_resultados = Text(frame_resultados)
-t_resultados.config(bg="black", fg="green yellow", font=("Courier", 18))
-t_resultados.place(x=10,y=10,width=460,height=160)
-
 # run
-# se ejecuta el metodo mainloop() de la clase Tk() a través de la instancia ventana_principal. Este metodo despliega la ventana en pantalla y queda a la espera de lo que el usuario haga (click en un boton, escribir, etc).  Cada acción del usuario se conoce como un evento.  El método mainloop() es un bucle infinito.
+# se ejecuta el metodo mainlop() de la clase Tk () a través de la instancia ventana_principal. Este metodo despliega una ventana en la pantalla y queda a la espera de lo que el usuario haga (click en un botón, escrubir, etc). Cada acción del usuario se conoce como un evento. El método mainloop() es un bucle infinito.
 ventana_principal.mainloop()

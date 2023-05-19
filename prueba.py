@@ -119,7 +119,7 @@ def abrir_toplevel_notas():
     toplevel_notas = Toplevel()
     toplevel_notas.title("Stephanie Ortiz Pico")
     toplevel_notas.resizable(False, False)
-    toplevel_notas.geometry("600x400")
+    toplevel_notas.geometry("600x450")
     toplevel_notas.config(bg="white")
 
     # etiqueta para notas
@@ -182,9 +182,65 @@ def abrir_toplevel_notas():
     entry_autoevaluacion.focus_set()
     entry_autoevaluacion.place(x=340,y=300)
 
+    # boton para calcular notas
+    bt_calcular_notas = Button(toplevel_notas,text="Calcular Notas")
+    bt_calcular_notas.place(x=310, y=350, width=100, height=30)
+
+    def calcular_definitiva():
+        cognitivo = float(entry_cognitiva.get())
+        procedimental = float(entry_procedimental.get())
+        actitudinal = float(entry_actitudinal.get())
+        autoevaluacion = float(entry_autoevaluacion.get())
+        bimestral = float(entry_bimestral.get())
+       
+        nota_definitiva = (0.3*cognitivo) + (0.3*procedimental) + (0.1*autoevaluacion) + (0.1*actitudinal) + (0.2*bimestral)
+
+    if calcular_definitiva < 30:
+            messagebox.showinfo("Resultado", "El alumno reprobo la asignatura  :(")
+
+# abrir toplevel imc
+def abrir_toplevel_imc():
+    global toplevel_imc
+    toplevel_imc = Toplevel()
+    toplevel_imc.title("Stephanie Ortiz Pico")
+    toplevel_imc.resizable(False, False)
+    toplevel_imc.geometry("400x400")
+    toplevel_imc.config(bg="white")
+
+    # etiqueta para imc
+    lb_c = Label(toplevel_imc, text = "Calcular Imc")
+    lb_c.config(bg="white", fg="thistle", font=("Helvetica", 30))
+    lb_c.place(x=100, y=30)
+
+    # etiqueta para peso
+    lb_peso = Label(toplevel_imc, text = "Peso")
+    lb_peso.config(bg="white", fg="thistle", font=("Helvetica", 18))
+    lb_peso.place(x=100, y=100)
+
+    # etiqueta para estatura
+    lb_estatura = Label(toplevel_imc, text = "Estatura")
+    lb_estatura.config(bg="white", fg="thistle", font=("Helvetica", 18))
+    lb_estatura.place(x=100, y=160)
+
+    # caja de texto para peso
+    entry_peso = Entry(toplevel_imc, textvariable="")
+    entry_peso.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=6)
+    entry_peso.focus_set()
+    entry_peso.place(x=240,y=95)
+
+    # caja de texto para estatura
+    entry_estatura = Entry(toplevel_imc, textvariable="")
+    entry_estatura.config(bg="white", fg="thistle", font=("Times New Roman", 18), width=6)
+    entry_estatura.focus_set()
+    entry_estatura.place(x=240,y=155)
+
 # boton para calcular notas
-bt_convertir = Button(frame_blanco,text="Calcular Notas", command=abrir_toplevel_notas)
-bt_convertir.place(x=230, y=300, width=100, height=30)
+bt_calcular_notas = Button(frame_blanco,text="Calcular Notas", command=abrir_toplevel_notas)
+bt_calcular_notas.place(x=160, y=300, width=100, height=30)
+
+# boton para calcular imc
+bt_calcular_imc = Button(frame_blanco,text="Calcular Imc", command=abrir_toplevel_imc)
+bt_calcular_imc.place(x=310, y=300, width=100, height=30)
 
 # boton para borrar
 bt_borrar = Button(frame_blanco, text="Borrar", command=borrar)
